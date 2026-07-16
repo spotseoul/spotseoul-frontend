@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', 'Noto Sans KR', sans-serif;
+  --color-spot-bg: #F5F2EB;
+  --color-spot-gnb: #FFFFFF;
+  --color-spot-navy: #111E35;
+  --color-spot-coral: #E04F3F;
+  --color-spot-card: #FFFFFF;
+  --color-spot-border: #E8E3D7;
+  --color-spot-gray: #64748B;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
