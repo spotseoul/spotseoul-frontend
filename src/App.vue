@@ -591,7 +591,7 @@
                 >COMMUNITY</span
               >
               <h2 class="text-2xl font-extrabold text-spot-navy">여행자 게시판</h2>
-              <p class="text-xs text-slate-500 font-medium">
+              <p class="text-xs text-slate-500 font-medium emoji-text">
                 서울 여행자들과 소통하세요
               </p>
             </div>
@@ -983,9 +983,9 @@
               >
                 <div
                   v-if="msg.role === 'assistant'"
-                  class="w-8 h-8 rounded-full bg-spot-navy text-white flex items-center justify-center text-xs flex-shrink-0"
+                  class="w-8 h-8 rounded-full bg-spot-navy flex items-center justify-center flex-shrink-0 overflow-hidden"
                 >
-                  🤖
+                  <img src="/images/spoti2.png" alt="챗봇" class="w-full h-full object-cover" />
                 </div>
 
                 <div class="space-y-1">
@@ -1024,9 +1024,9 @@
 
               <div v-if="chatLoading" class="flex gap-3 max-w-[85%]">
                 <div
-                  class="w-8 h-8 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs flex-shrink-0"
+                  class="w-8 h-8 rounded-full bg-slate-300 flex items-center justify-center flex-shrink-0 overflow-hidden"
                 >
-                  🤖
+                  <img src="/images/spoti2.png" alt="챗봇 로딩" class="w-full h-full object-cover" />
                 </div>
                 <div
                   class="p-3 bg-white text-slate-400 border border-spot-border rounded-2xl text-xs flex items-center gap-1.5"

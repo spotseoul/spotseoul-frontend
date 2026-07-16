@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Color+Emoji&display=swap');
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import 'tailwindcss';
 
 :root {
   --font-sans-stack: Inter, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Segoe UI', Roboto, sans-serif;
-  --font-emoji-stack: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', 'Android Emoji', sans-serif;
+  --font-emoji-stack: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'Twemoji Mozilla', 'Android Emoji', sans-serif;
 }
 
 @theme {
@@ -45,7 +45,10 @@ select {
 
 emoji,
 [aria-label*='emoji'],
-[title*='emoji'] {
+[title*='emoji'],
+.emoji-text,
+.chat-message,
+.text-with-emoji {
   font-family: var(--font-emoji-stack);
 }
 
