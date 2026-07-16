@@ -1243,7 +1243,7 @@ const showToast = (msg) => {
 }
 
 // FastAPI Server Base URL - 환경변수 또는 배포 주소를 입력하세요
-const apiBaseUrl = ref(import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000')
+const apiBaseUrl = ref(import.meta.env.VITE_API_BASE_URL || 'https://spotseoul-backend.onrender.com')
 const customApiKey = ref('')
 const mobileMenuOpen = ref(false)
 
