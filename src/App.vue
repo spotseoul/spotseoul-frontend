@@ -1752,8 +1752,15 @@ const renderMapMarkers = () => {
   if (!markerGroup) return
   markerGroup.clearLayers()
 
+  const customIcon = L.icon({
+    iconUrl: '/images/marker-pin.svg',
+    iconSize: [32, 40],
+    iconAnchor: [16, 40],
+    popupAnchor: [0, -34],
+  })
+
   mapPlaces.value.forEach((spot) => {
-    const marker = L.marker([spot.lat, spot.lng]).addTo(markerGroup)
+    const marker = L.marker([spot.lat, spot.lng], { icon: customIcon }).addTo(markerGroup)
     marker.bindPopup(`
                         <div class="p-1 space-y-1 text-xs">
                             <strong class="text-spot-navy font-bold block">${spot.name}</strong>

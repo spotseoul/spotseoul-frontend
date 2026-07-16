@@ -2,8 +2,13 @@
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import 'tailwindcss';
 
+:root {
+  --font-sans-stack: Inter, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Segoe UI', Roboto, sans-serif;
+  --font-emoji-stack: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', 'Android Emoji', sans-serif;
+}
+
 @theme {
-  --font-sans: 'Inter', 'Noto Sans KR', sans-serif;
+  --font-sans: var(--font-sans-stack);
   --color-spot-bg: #F5F2EB;
   --color-spot-gnb: #FFFFFF;
   --color-spot-navy: #111E35;
@@ -17,8 +22,36 @@ html,
 body,
 #app {
   min-height: 100%;
+  font-family: var(--font-sans-stack);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
+}
+
+body,
+p,
+span,
+div,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-sans-stack);
+}
+
+emoji,
+[aria-label*='emoji'],
+[title*='emoji'] {
+  font-family: var(--font-emoji-stack);
+}
+
+.fa,
+.fas,
+.far,
+.fab {
+  font-family: inherit;
 }
