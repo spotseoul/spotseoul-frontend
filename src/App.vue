@@ -1124,9 +1124,10 @@
             </button>
             <button
               @click="askChatbotAbout(detailModal.spot)"
-              class="py-2.5 px-4 bg-spot-coral text-white font-bold rounded-lg hover:bg-spot-coral/90 transition-colors"
+              class="py-2.5 px-4 bg-spot-coral text-white font-bold rounded-lg hover:bg-spot-coral/90 transition-colors inline-flex items-center gap-2"
             >
-              🤖 AI 챗봇 문의
+              <img src="/images/spoti2.png" alt="챗봇" class="w-4 h-4 rounded-full object-cover" />
+              AI 챗봇 문의
             </button>
           </div>
         </div>
@@ -1823,7 +1824,7 @@ const chatLoading = ref(false)
 const chatMessages = ref([
   {
     role: 'assistant',
-    text: sanitizeEmojiText('안녕하세요! 서울 여행의 실시간 동반자 SpotSeoul 챗봇입니다.\n\nFastAPI 백엔드 및 실시간 Google Gemini AI 엔진과 긴밀하게 연동되어 고성능 맞춤 정보를 들려드려요!'),
+    text: sanitizeEmojiText('안녕하세요! 서울 여행의 실시간 동반자 SpotSeoul 챗봇입니다.\n'),
   },
 ])
 
@@ -2025,7 +2026,7 @@ const timeAgo = (isoStr) => {
 }
 
 onMounted(() => {
-  replaceHistoryState()
+  replaceHistoryState()``
   window.addEventListener('popstate', handlePopState)
   fetchInitialData()
 })
