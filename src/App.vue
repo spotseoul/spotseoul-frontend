@@ -592,7 +592,7 @@
               >
               <h2 class="text-2xl font-extrabold text-spot-navy">여행자 게시판</h2>
               <p class="text-xs text-slate-500 font-medium">
-                서울 여행자들과 소통하세요 📍💬🤝
+                서울 여행자들과 소통하세요
               </p>
             </div>
             <button
@@ -1814,7 +1814,7 @@ const chatLoading = ref(false)
 const chatMessages = ref([
   {
     role: 'assistant',
-    text: '안녕하세요! 서울 여행의 실시간 동반자 SpotSeoul 챗봇입니다 🗺️\n\nFastAPI 백엔드 및 실시간 Google Gemini AI 엔진과 긴밀하게 연동되어 고성능 맞춤 정보를 들려드려요!',
+    text: '안녕하세요! 서울 여행의 실시간 동반자 SpotSeoul 챗봇입니다.\n\nFastAPI 백엔드 및 실시간 Google Gemini AI 엔진과 긴밀하게 연동되어 고성능 맞춤 정보를 들려드려요!',
   },
 ])
 
@@ -1867,13 +1867,13 @@ const sendChatMessage = async () => {
     } else {
       chatMessages.value.push({
         role: 'assistant',
-        text: '⚠️ 백엔드 서버는 연결되었으나 가이드 연동 과정에서 에러가 발생했습니다.',
+        text: '주의: 백엔드 서버는 연결되었으나 가이드 연동 과정에서 에러가 발생했습니다.',
       })
     }
   } catch (e) {
     chatMessages.value.push({
       role: 'assistant',
-      text: '⚠️ 현재 입력된 주소로 FastAPI 서버에 접근할 수 없습니다. 상단 [서버 & AI 설정]에서 포트가 일치하는지 점검해 주세요!',
+      text: '주의: 현재 입력된 주소로 FastAPI 서버에 접근할 수 없습니다. 상단 [서버 & AI 설정]에서 포트가 일치하는지 점검해 주세요!',
     })
   } finally {
     chatLoading.value = false
