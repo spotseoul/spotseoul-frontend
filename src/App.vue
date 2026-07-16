@@ -997,7 +997,7 @@
                         : 'bg-white text-spot-navy border-spot-border',
                     ]"
                   >
-                    <span class="whitespace-pre-wrap">{{ msg.text }}</span>
+                    <span class="whitespace-pre-wrap">{{ sanitizeEmojiText(msg.text) }}</span>
 
                     <!-- Recommended Spot Card -->
                     <div v-if="msg.spots && msg.spots.length > 0" class="mt-3.5 space-y-2">
@@ -1240,6 +1240,15 @@ const showToast = (msg) => {
   setTimeout(() => {
     toast.visible = false
   }, 3000)
+}
+
+const sanitizeEmojiText = (text) => {
+  if (!text || typeof text !== 'string') return ''
+
+  return text
+    .replace(/([\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}])/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 // FastAPI Server Base URL - 환경변수 또는 배포 주소를 입력하세요
@@ -1814,7 +1823,7 @@ const chatLoading = ref(false)
 const chatMessages = ref([
   {
     role: 'assistant',
-    text: '안녕하세요! 서울 여행의 실시간 동반자 SpotSeoul 챗봇입니다.\n\nFastAPI 백엔드 및 실시간 Google Gemini AI 엔진과 긴밀하게 연동되어 고성능 맞춤 정보를 들려드려요!',
+    text: sanitizeEmojiText('안녕하세요! 서울 여행의 실시간 동반자 SpotSeoul 챗봇입니다.\n\nFastAPI 백엔드 및 실시간 Google Gemini AI 엔진과 긴밀하게 연동되어 고성능 맞춤 정보를 들려드려요!'),
   },
 ])
 
@@ -1839,7 +1848,7 @@ const usePresetPrompt = (prompt) => {
 const sendChatMessage = async () => {
   if (!chatInput.value.trim()) return
   const userQuery = chatInput.value
-  chatMessages.value.push({ role: 'user', text: userQuery })
+  chatMessages.value.push({ role: 'user', text: sanitizeEmojiText(userQuery) })
   chatInput.value = ''
   chatLoading.value = true
 
@@ -1861,19 +1870,19 @@ const sendChatMessage = async () => {
       const data = await res.json()
       chatMessages.value.push({
         role: 'assistant',
-        text: data.text,
+        text: sanitizeEmojiText(data.text),
         spots: data.spots,
       })
     } else {
       chatMessages.value.push({
         role: 'assistant',
-        text: '주의: 백엔드 서버는 연결되었으나 가이드 연동 과정에서 에러가 발생했습니다.',
+        text: sanitizeEmojiText('주의: 백엔드 서버는 연결되었으나 가이드 연동 과정에서 에러가 발생했습니다.'),
       })
     }
   } catch (e) {
     chatMessages.value.push({
       role: 'assistant',
-      text: '주의: 현재 입력된 주소로 FastAPI 서버에 접근할 수 없습니다. 상단 [서버 & AI 설정]에서 포트가 일치하는지 점검해 주세요!',
+      text: sanitizeEmojiText('주의: 현재 입력된 주소로 FastAPI 서버에 접근할 수 없습니다. 상단 [서버 & AI 설정]에서 포트가 일치하는지 점검해 주세요!'),
     })
   } finally {
     chatLoading.value = false
