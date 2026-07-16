@@ -5,7 +5,9 @@
       v-if="toast.visible"
       class="fixed top-20 right-5 z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl bg-spot-navy text-white border border-slate-700 transition-all duration-300 transform translate-y-0 text-xs font-semibold animate-bounce"
     >
-      <i class="fas fa-info-circle text-spot-coral"></i>
+      <svg viewBox="0 0 24 24" class="w-4 h-4 text-spot-coral fill-current" aria-hidden="true">
+        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z" />
+      </svg>
       <span>{{ toast.message }}</span>
     </div>
 
@@ -17,7 +19,9 @@
         <div
           class="w-7 h-7 rounded bg-spot-navy flex items-center justify-center text-white text-xs font-black"
         >
-          <i class="fas fa-map-pin"></i>
+          <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current" aria-hidden="true">
+            <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5Z" />
+          </svg>
         </div>
         <span class="text-base font-extrabold text-spot-navy tracking-tight flex flex-col">
           <span class="leading-none text-xs text-spot-coral tracking-widest font-black uppercase"
@@ -49,7 +53,12 @@
         class="md:hidden p-2 rounded-lg bg-slate-100 text-spot-navy hover:bg-slate-200 transition-all"
         aria-label="메뉴 열기"
       >
-        <i :class="mobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+        <svg v-if="!mobileMenuOpen" viewBox="0 0 24 24" class="w-4 h-4 fill-current" aria-hidden="true">
+          <path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z" />
+        </svg>
+        <svg v-else viewBox="0 0 24 24" class="w-4 h-4 fill-current" aria-hidden="true">
+          <path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3l6.3-6.3-6.3-6.3 1.4-1.4 6.3 6.3 6.3-6.3z" />
+        </svg>
       </button>
     </header>
 
@@ -141,11 +150,11 @@
               <div class="p-4">
                 <div
                   :class="[
-                    'mb-3 flex h-9 w-9 items-center justify-center rounded-xl text-sm text-white',
+                    'mb-3 flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden text-sm text-white',
                     cat.color,
                   ]"
                 >
-                  <i :class="cat.icon"></i>
+                  <img :src="'/images/home-icon.svg'" :alt="cat.name" class="h-full w-full object-cover" />
                 </div>
 
                 <h4
@@ -158,8 +167,8 @@
                   {{ cat.desc }}
                 </p>
 
-                <span class="mt-3 inline-block text-[10px] font-bold text-spot-coral">
-                  탐색 <i class="fas fa-chevron-right ml-1"></i>
+                <span class="mt-3 inline-flex items-center gap-1 text-[10px] font-bold text-spot-coral">
+                  탐색 <span class="text-[11px]">→</span>
                 </span>
               </div>
             </div>
@@ -180,7 +189,7 @@
                 @click="switchTab('spots')"
                 class="text-xs text-slate-400 hover:text-white transition-all"
               >
-                전체보기 <i class="fas fa-chevron-right text-[10px]"></i>
+                전체보기 <span class="ml-1 text-[10px]">→</span>
               </button>
             </div>
 
@@ -204,7 +213,7 @@
                     {{ spot.name }}
                   </h4>
                   <p class="text-[10px] text-slate-400 truncate">
-                    <i class="fas fa-map-marker-alt text-spot-coral mr-1"></i>{{ spot.address }}
+                    <img src="/images/home-icon.svg" alt="위치" class="w-3.5 h-3.5 mr-1 inline-block rounded-sm" />{{ spot.address }}
                   </p>
                 </div>
               </div>
@@ -1911,6 +1920,14 @@ const switchTab = (tabId) => {
   if (tabId === 'spots') {
     searchSpots()
   }
+  // Ensure courses data loads when entering the courses tab
+  if (tabId === 'courses') {
+    loadTravelCourses()
+  }
+  // Ensure board data loads when entering the board tab
+  if (tabId === 'board') {
+    fetchPosts()
+  }
   if (tabId === 'map') {
     nextTick(() => {
       initLeafletMap()
@@ -1963,10 +1980,18 @@ const restoreHistoryState = async (state) => {
     if (boardSubView.value === 'detail' && state.currentPostId) {
       await loadPostById(state.currentPostId)
     }
+    // When restoring to board list view, load posts for current filters
+    if (boardSubView.value === 'list') {
+      await fetchPosts()
+    }
   }
 
   if (activeTab.value === 'spots') {
     await searchSpots()
+  }
+
+  if (activeTab.value === 'courses') {
+    await loadTravelCourses()
   }
 
   if (activeTab.value === 'map') {
@@ -2026,7 +2051,7 @@ const timeAgo = (isoStr) => {
 }
 
 onMounted(() => {
-  replaceHistoryState()``
+  replaceHistoryState()
   window.addEventListener('popstate', handlePopState)
   fetchInitialData()
 })
